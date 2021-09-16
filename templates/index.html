@@ -3,9 +3,12 @@
 {% block head %} Index {% endblock %}
 {% block body%}
 <h1>Was made in index.html with the use of base.html . Stay Tuned for more pages. </h1>
-<a href = "/about">About</a> <br>
+<div><a href = "/about">About</a> <hr></div>
 <marquee dir="ltr"><hr color="blue" width=50% align="right"> </marquee>
-<a href = "/form">Form</a> <br>
+<div><a href = "/form">Form</a></div> <hr>
 <marquee dir = "rtl"><hr color="blue" width="50%" align="left"></marquee>
-<a href = "/data">Previous Data</a>
+<div><a href = "/data">Previous Data</a></div>
+</div>
+{% block extension%}{% endblock %}
+
 {% endblock %}

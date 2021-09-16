@@ -1,6 +1,7 @@
-<p>ID Username Email Date&Time</p>
+{% extends 'base.html' %}
+{% block head %}Your Data Data{% endblock%}
 
-
+{% block body %}
 <table border=2 bgcolor="red"> 
     <tr>
         <th>ID</th>
@@ -15,3 +16,4 @@
         <td>{{alltogether.datetimer}}</td>
     </tr>
 </table>
+{% endblock%}

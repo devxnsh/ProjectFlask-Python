@@ -1,3 +1,4 @@
+import re
 from flask import Flask, render_template,request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -17,8 +18,17 @@ class User(db.Model):
     def __repr__(self):
         return f'{self.id} - {self.username} - {self.email} - {self.datetimer}'
 
-def dataentry(Identity, UserID, ElectronicMail,Dated=datetime.utcnow()):
-    db.session.add(User(id=Identity, username= UserID, email = ElectronicMail,datetimer=Dated))
+class Admin(db.Model):
+    
+    username = db.Column(db.String(80), primary_key = True)
+    passwd = db.Column(db.String(120), nullable = False)
+    
+
+    def __repr__(self):
+        return f'{self.username} - {self.passwd} '
+
+def dataentry(Table,Identity, UserID, ElectronicMail,Dated=datetime.utcnow()):
+    db.session.add(Table(id=Identity, username= UserID, email = ElectronicMail,datetimer=Dated))
     db.session.commit()
 
 @app.route("/")
@@ -39,7 +49,8 @@ def addRegion():
     ment = request.form['email1']
     fill = request.form['username1']
     # dud = request.form['datetime1']
-    dataentry(full,fill,ment)
+    
+    dataentry(User,full,fill,ment)
     tester=User.query.filter_by(id=full).first()
 
     return render_template('regionaloutput.html', alltogether=tester)
@@ -48,6 +59,31 @@ def data():
     alltogether=User.query.all() 
 
     return render_template('output.html', alltogether=alltogether)
-
+@app.route('/login')
+def login():
+    return render_template('login.html')
+@app.route('/HomeAuth', methods = ['GET','POST' ])
+def HomeAuth():
+    userID = request.form['adminUsername']
+    userPW = request.form['adminPasswd']
+    verific = Admin.query.filter_by(username=userID, passwd = userPW).all()
+    if len(verific)!=1:
+        return ("Failure!")
+    else:
+        return render_template("command.html")
+@app.route("/deleterecord")
+def deleterecord():
+    alltogether=User.query.all() 
+    return render_template("deleteform.html", alltogether=alltogether)
+@app.route("/DeleteRecd", methods = ['GET','POST'])
+def DeleteRecd():
+    deleteID=request.form['deletebyID']
+    return deleteID
+    deletename=request.form['deletebyName']
+    deleteemail=request.form['deletebyEmail']
+    deletekarnekastuff=Admin.query.filter_by(id=deleteID)
+    db.session.delete(deletekarnekastuff)
+    db.session.commit()
+    return(data())
 if __name__== '__main__':
     app.run(debug=True)

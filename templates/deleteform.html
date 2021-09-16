@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block head %}Deletion{% endblock%}
+{% block body %}
+<table border=2 bgcolor="yellow"> 
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Datetime</th>
+    </tr>
+    {% for i in alltogether %}
+        <tr>
+        
+            <td>{{i.id}}</td>
+            <td>{{i.username}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.datetimer}}</td>
+        </tr>
+    {% endfor %}    
+    
+</table>
+ <br><hr color="magenta" >
+<form action="{{ url_for('DeleteRecd') }}" method = "POST">
+<fieldset style="width: 30%;">
+   <legend><b>Choose ONLY one</b></legend> 
+    <p>ID you want to delete</p><input type="text" title="deletebyID">
+    <p>User you want to delete</p><input type="text" title="deletebyName">
+    <p>Email you want to delete</p><input type="text" title="deletebyEmail">
+    <br>
+    <input type="submit">
+</fieldset>
+</form>
+{% endblock%}

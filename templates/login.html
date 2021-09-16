@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block head %}Test Form{% endblock%}
+{% block body %}
+<form action = "{{url_for('HomeAuth') }}" method = "POST" > 
+    
+    <p>UserName</p> <input type="email", name = "adminUsername", size=15, maxlength = 30 required='required'>
+    <p>PassWord</p> <input type="password", name = "adminPasswd", size=15, maxlength = 30 required='required'>
+    
+    <input type = "submit" value = "submit">
+</form>
+
+{% endblock %}

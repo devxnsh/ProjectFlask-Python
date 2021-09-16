@@ -1,4 +1,7 @@
-<table border=2 bgcolor="red"> 
+{% extends 'base.html' %}
+{% block head %}All Data{% endblock%}
+{% block body %}
+<table border=2 bgcolor="yellow"> 
     <tr>
         <th>ID</th>
         <th>Username</th>
@@ -16,3 +19,4 @@
     {% endfor %}    
     
 </table>
+{% endblock%}
